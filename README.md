@@ -53,7 +53,7 @@ This project follows clean engineering standards to ensure quality and reproduci
 - **Spotless (Google Java Format)** — automatic code formatting  
 - **Structured package layout:**  
   ```
-  com.example.pdw
+  com.mike.pdw
   ├── config/
   ├── domain/
   │   ├── entity/
