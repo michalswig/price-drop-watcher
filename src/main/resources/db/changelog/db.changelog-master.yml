@@ -1,0 +1,135 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0001-create-tables
+      author: mike
+      changes:
+        - createTable:
+            tableName: product
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: external_id
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: source_type
+                  type: VARCHAR(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: drop_threshold
+                  type: DECIMAL(19,4)
+                  constraints:
+                    nullable: false
+
+        - addUniqueConstraint:
+            tableName: product
+            columnNames: external_id, source_type
+            constraintName: uq_product_external_source
+
+        - createTable:
+            tableName: price_point
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: DECIMAL(19,4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ts
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: price_point
+            baseColumnNames: product_id
+            constraintName: fk_price_point_product
+            referencedTableName: product
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+        - createIndex:
+            tableName: price_point
+            indexName: ix_price_point_product_ts
+            columns:
+              - column:
+                  name: product_id
+              - column:
+                  name: ts
+
+        - createTable:
+            tableName: price_alert
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: current_price
+                  type: DECIMAL(19,4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ema
+                  type: DECIMAL(19,4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: price_alert
+            baseColumnNames: product_id
+            constraintName: fk_price_alert_product
+            referencedTableName: product
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+        - createIndex:
+            tableName: price_alert
+            indexName: ix_price_alert_created_at
+            columns:
+              - column:
+                  name: created_at
