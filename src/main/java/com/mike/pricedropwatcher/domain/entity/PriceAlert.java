@@ -1,14 +1,13 @@
 package com.mike.pricedropwatcher.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.*;
 
 @Entity
+@Table(name = "price_alert")
 @Getter
 @Setter
 @NoArgsConstructor
