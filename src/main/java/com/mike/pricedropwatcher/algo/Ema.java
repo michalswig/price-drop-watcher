@@ -8,7 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public final class Ema {
-  private static final MathContext MC = MathContext.DECIMAL64;
+  private static final MathContext MATH_CONTEXT = MathContext.DECIMAL64;
   private static final Integer SCALE = 2;
 
   private Ema() {}
@@ -29,11 +29,14 @@ public final class Ema {
 
   private static BigDecimal getBigDecimal(BigDecimal alpha, List<PricePoint> sorted) {
     BigDecimal ema = sorted.getFirst().getPrice();
-    BigDecimal oneMinusAlpha = BigDecimal.ONE.subtract(alpha, MC);
+    BigDecimal oneMinusAlpha = BigDecimal.ONE.subtract(alpha, MATH_CONTEXT);
 
     for (int i = 1; i < sorted.size(); i++) {
       BigDecimal price = sorted.get(i).getPrice();
-      ema = alpha.multiply(price, MC).add(oneMinusAlpha.multiply(ema, MC), MC);
+      ema =
+          alpha
+              .multiply(price, MATH_CONTEXT)
+              .add(oneMinusAlpha.multiply(ema, MATH_CONTEXT), MATH_CONTEXT);
     }
     return ema;
   }
