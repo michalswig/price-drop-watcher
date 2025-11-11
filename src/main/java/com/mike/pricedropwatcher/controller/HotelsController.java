@@ -1,7 +1,8 @@
 package com.mike.pricedropwatcher.controller;
 
+import com.mike.pricedropwatcher.domain.entity.Property;
 import com.mike.pricedropwatcher.service.SerpApiService;
-import java.util.Map;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ public class HotelsController {
   private final SerpApiService serpApiService;
 
   @GetMapping("/search")
-  public Map<String, Object> search(
+  public List<Property> search(
       @RequestParam String city,
       @RequestParam String checkIn,
       @RequestParam String checkOut,
