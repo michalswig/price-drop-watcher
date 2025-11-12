@@ -1,7 +1,7 @@
 # 🏷️ Price Drop Watcher
 
 Price Drop Watcher is a **Spring Boot 3 / Java 21** application that monitors product prices, calculates **EMA (Exponential Moving Average)** trends, and triggers alerts when significant price drops occur.  
-It demonstrates practical Spring features — **@Scheduled**, **@Async**, **@Transactional**, **@Cacheable**, and **@EventListener** — combined with clean architecture, caching, and JWT-based security.
+It uses practical Spring features — **@Scheduled**, **@Async**, **@Transactional**, **@Cacheable**, and **@EventListener** — combined with clean architecture, caching, and JWT-based security.
 
 ---
 
